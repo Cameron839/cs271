@@ -1,5 +1,5 @@
 /****************************************
- * C-ploration 7 for CS 271
+ * * Unit 6 Project for CS 271
  * 
  * [NAME] Cameron Peters
  * [TERM] FALL 2022
@@ -37,8 +37,11 @@ int main(int argc, const char *argv[])
     
     //symtable_print_labels();
     //printf("%d\n", num_instructions);
+    
     fclose(fin);
     assemble(argv[1], instructions, num_instructions);
+    //printf("Hello");
+    //fflush(stdout);
     free(instructions);
 }
 

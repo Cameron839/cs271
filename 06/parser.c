@@ -1,5 +1,5 @@
 /****************************************
- * C-ploration 7 for CS 271
+ * Unit 6 Project for CS 271
  * 
  * [NAME] Cameron Peters
  * [TERM] FALL 2022
@@ -37,7 +37,7 @@ void assemble(const char * file_name, instruction* instructions, int num_instruc
     int address = 16;
     for(int i=0; i < num_instructions; i++) {
         if(instructions[i].sometype == A_type) {
-            if((instructions[i].instr.a.operand.address) == 1){
+            if((instructions[i].instr.a.is_addr) == 1){
                 opcode = instructions[i].instr.a.operand.address;
     } else {
         if((symtable_find(instructions[i].instr.a.operand.label) == NULL)){
