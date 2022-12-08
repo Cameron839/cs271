@@ -26,7 +26,9 @@
 int length(char* txt) {
 	int len = 0;
 	
-	/* REPLACE WITH YOUR CODE */
+	for(int i = 0; i<txt[i]; i++){
+		len++;
+	}
 
 	return len;  
 }
@@ -49,7 +51,7 @@ char *welcome(char* hello, char* name) {
 	// dynamically allocate a new string
 	char *message = malloc(sizeof(char)*MAX_LIMIT);
 		
-	/* REPLACE WITH YOUR CODE */
+	
 	
 	return message;	
 }
