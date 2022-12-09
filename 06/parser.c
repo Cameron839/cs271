@@ -25,35 +25,48 @@ void add_predefined_symbols(){
 
 /*assemble functin*/
 void assemble(const char * file_name, instruction* instructions, int num_instructions){
-    
+    //allocate memory
     char *f_name = malloc(strlen(file_name) + 5);
    
+    //append ".hack" to file name
     strcpy(f_name, file_name);
     strcat(f_name, ".hack");
 
+    //open
     FILE * file = fopen(f_name, "w");
 
     opcode opcode;
     int address = 16;
+    //iterate over num_instructions
     for(int i=0; i < num_instructions; i++) {
-        if(instructions[i].sometype == A_type) {
+        //if instruction[i]is an a instruction, continue on
+        if(instructions[i].sometype == A_type){
+            //instructions[i] checks address of a_instruction, if there is an address...
             if((instructions[i].instr.a.is_addr) == 1){
+                //set opcode to the address
                 opcode = instructions[i].instr.a.operand.address;
-    } else {
-        if((symtable_find(instructions[i].instr.a.operand.label) == NULL)){
-            opcode = address;
-            symtable_insert(instructions[i].instr.a.operand.label, address++);
-    }else{
-        opcode = symtable_find(instructions[i].instr.a.operand.label)->addr;
-    }
-
-        free(instructions[i].instr.a.operand.label);
-}
-    }else if(instructions[i].sometype == C_type){
-        opcode = instruction_to_opcode(instructions[i].instr.c);
-    }
-fprintf(file, "%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\n", OPCODE_TO_BINARY(opcode));
+                //else
+                } else {
+                    //if instruction[i] is an a instruction but is has a label
+                    if((symtable_find(instructions[i].instr.a.operand.label) == NULL)){
+                        //set opcode to the address
+                        opcode = address;
+                        //add new varaible to symbol table
+                        symtable_insert(instructions[i].instr.a.operand.label, address++);
+                }else{
+                        opcode = symtable_find(instructions[i].instr.a.operand.label)->addr;
         }
+        //Free
+        free(instructions[i].instr.a.operand.label);
+            }
+        //else if if instructions[i] is a C type
+       }else if(instructions[i].sometype == C_type){
+           //set opcode to struct c_instruction
+           opcode = instruction_to_opcode(instructions[i].instr.c);
+}           //print 16 character opcode
+            fprintf(file, "%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\n", OPCODE_TO_BINARY(opcode));
+        }
+    //close file
         fclose(file);
     
 }
